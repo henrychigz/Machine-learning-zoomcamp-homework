@@ -83,8 +83,10 @@ If you see an error like `OSError: [Errno 98] Address already in use`, the port 
 
 2. **Find and stop the process using the port:**
    ```bash
-   # On Linux/Mac
-   lsof -ti:8888 | xargs kill -9
+   # On Linux/Mac (try graceful shutdown first)
+   lsof -ti:8888 | xargs kill
+   # If the process doesn't stop, force kill with:
+   # lsof -ti:8888 | xargs kill -9
    
    # On Windows (PowerShell)
    Get-Process -Id (Get-NetTCPConnection -LocalPort 8888).OwningProcess | Stop-Process
